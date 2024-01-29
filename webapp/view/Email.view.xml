@@ -1,7 +1,35 @@
-<mvc:View controllerName="zpcsac.controller.Email"
-    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
-    xmlns="sap.m">
-    <Page id="page" title="{i18n>title}">
-        <content />
+<mvc:View
+    controllerName="zpcsac.controller.Email"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    xmlns="sap.m"
+    xmlns:l="sap.ui.layout"
+>
+    <Page
+        id="idEmailPage"
+        title="{i18n>title}"
+    >
+        <content>
+            <l:VerticalLayout
+                id="idVerticalLayout"
+                class="sapUiContentPadding"
+                width="90%"
+            >
+            
+			<Label text="Cc:" labelFor="idCcInput"/>
+                    <Input
+                        id="idCcInput"
+                        type="Email"
+                        value="{/Cc}"
+                        width="80%"
+                    />
+			<Label id="idMensagemLabel" text="{i18n>message}:" /> 
+            </l:VerticalLayout>
+        </content><footer>
+			<OverflowToolbar id="idOverflowToolbar">
+				<ToolbarSpacer id="id1ToolbarSpacer"/>
+				<Button id="idEnviarEmailButton" type="Accept" text="{i18n>sendEmail}" press="onEnviarEmailButtonPress"/>
+			</OverflowToolbar>
+		</footer>
     </Page>
 </mvc:View>
