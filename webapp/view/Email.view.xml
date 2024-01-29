@@ -29,6 +29,7 @@
 			<OverflowToolbar id="idOverflowToolbar">
 				<ToolbarSpacer id="id1ToolbarSpacer"/>
 				<Button id="idEnviarEmailButton" type="Accept" text="{i18n>sendEmail}" press="onEnviarEmailButtonPress"/>
+				<Button id="idCancelButton" type="Reject" text="{i18n>cancel}" press="onButtonCancelPress"/>
 			</OverflowToolbar>
 		</footer>
     </Page>
