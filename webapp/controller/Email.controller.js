@@ -102,48 +102,15 @@ sap.ui.define([
                                 Body: sBody
                             },
                             success: function (oData, response) {
-                                MessageBox.success("Mensagem enviada com sucesso!", {
-                                    onClose: function () {
-                                        that._navBack();
-                                    }
-                                });
-                                // var aMessages = [];
-
-                                // for (let index = 0; index < oData.results.length; index++) {
-                                //     let element = oData.results[index];
-                                //     let sType;
-
-                                //     switch (element.Type) {
-                                //         case "S":
-                                //             sType = "Success";
-                                //             break;
-
-                                //         case "E":
-                                //             sType = "Error";
-                                //             break;
-
-                                //         case "W":
-                                //             sType = "Warning";
-                                //             break;
-
-                                //         case "I":
-                                //             sType = "Information";
-                                //             break;
-
-                                //         default:
-                                //             break;
-                                //     }
-
-                                //     aMessages.push({
-                                //         type: sType,
-                                //         title: element.Message,
-                                //         description: ""
-                                //     });
-                                // }
-
-                                // that.oMessageView.getModel().setData(aMessages);
-                                // that.oMessageView.navigateBack();
-                                // that.oDialog.open();
+                                if (oData.results[0].Type === 'S') {
+                                    MessageBox.success(oData.results[0].Message, {
+                                        onClose: function () {
+                                            that._navBack();
+                                        }
+                                    });
+                                } else {
+                                    MessageBox.error(oData.results[0].Message);
+                                }
                             },
                             error: function (e) {
                                 MessageBox.error("Erro interno do servidor!");
