@@ -10,7 +10,7 @@ sap.ui.define([
     function (Controller, JSONModel, MessageBox, History) {
         "use strict";
 
-        const sPatternEmailList = "^([\w+-.%]+@[\w-.]+\.[A-Za-z]{2,}(\s*;?\s*)*)+$";
+        const sPatternEmailList = /^([\w+-.%]+@[\w-.]+\.[A-Za-z]{2,}(\s*;?\s*)*)+$/;
 
         return Controller.extend("zpcsac.controller.Email", {
             _oRichTextEditor: null,
@@ -23,7 +23,7 @@ sap.ui.define([
             },
             onEnviarEmailButtonPress: function (oEvent) {
                 let sCc = this.getView().getModel().getProperty("/Cc");
-                this._sendEmail(sCc, this._oRichTextEditor.getContent());
+                this._sendEmail(sCc, this._oRichTextEditor.getValue());
             },
             onButtonCancelPress: function (oEvent) {
                 this._navBack();
@@ -95,21 +95,21 @@ sap.ui.define([
                     var oDataModel = this.getOwnerComponent().getModel();
 
                     try {
-                        oDataModel.callFunction("/CreateNf", {
+                        oDataModel.callFunction("/SendEmail", {
                             method: "GET",
                             urlParameters: {
                                 Cc: sCc,
                                 Body: sBody
                             },
                             success: function (oData, response) {
-                                if (oData.results[0].Type === 'S') {
-                                    MessageBox.success(oData.results[0].Message, {
+                                if (oData.SendEmail.Type === 'S') {
+                                    MessageBox.success(oData.SendEmail.Message, {
                                         onClose: function () {
                                             that._navBack();
                                         }
                                     });
                                 } else {
-                                    MessageBox.error(oData.results[0].Message);
+                                    MessageBox.error(oData.SendEmail.Message);
                                 }
                             },
                             error: function (e) {
